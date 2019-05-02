@@ -91,16 +91,8 @@ def fuse(G_img, kernel_state, grad_state, w_limit, h_limit, wh_state, W, H):
     grad = grad.astype("uint8")
     grad = cv2.morphologyEx(grad, cv2.MORPH_CLOSE, rectKernel)
 
-    #cv2.imshow('grad', grad)
-    #cv2.waitKey(0)
-    #cv2.destroyAllWindows()
-
     thresh = cv2.threshold(grad, 50, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
     thresh = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, sqKernel)
-    
-    #cv2.imshow('thresh', thresh)
-    #cv2.waitKey(0)
-    #cv2.destroyAllWindows()
 
     cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
 	cv2.CHAIN_APPROX_SIMPLE)
@@ -132,20 +124,16 @@ def fuse(G_img, kernel_state, grad_state, w_limit, h_limit, wh_state, W, H):
                  f = f + 1
                  locs.append((x-30, y-5, w+60, h+10))
                  cv2.rectangle(group.copy(), (x-30, y-5), (x+w+30, y+h+5), 0, 2)
-                 #cv2.imshow('image', group)
-                 #cv2.waitKey(0)
   
         else:
            if ar > 1 and ar < 2:
               flag = flag + 1
-              #print(w,h)
               if wh_state == 0:
                  if (w > w_limit[0] and w < w_limit[1]) and (h > h_limit[0] and h < h_limit[1]):
                     #f = f + 1
                     locs.append((x-10, y-10, w+10, h+10))
                     cv2.rectangle(group.copy(), (x-10, y-10), (x+w+10, y+h+10), 0, 2)
-                    #cv2.imshow('image', group)
-                    #cv2.waitKey(0)
+              
               if wh_state == 1:
                  if (w > w_limit[0] and w < w_limit[1]) and (h > h_limit[0] and h < h_limit[1]):
                      f = f + 1
@@ -263,7 +251,7 @@ def fuse(G_img, kernel_state, grad_state, w_limit, h_limit, wh_state, W, H):
 		                           cv2.CHAIN_APPROX_SIMPLE)
 	digitCnts = contours.sort_contours(digitCnts,
 		method="left-to-right")[0]
-        #print 'len(digitCnts)', len(digitCnts)
+      
         Output = []
         L = len(digitCnts)
         Scores = []
@@ -303,12 +291,10 @@ def fuse(G_img, kernel_state, grad_state, w_limit, h_limit, wh_state, W, H):
            output_flag = 1
            
  
-    #print 'counter', counter
     if output_flag == 1:
        return(Output)
     else:
        return('no output')
-    #print(scores)
 
 
 
@@ -329,8 +315,7 @@ with open('/media/a/9C8EE61C8EE5EF28/patra/patra project/fuse box/1.txt', 'r') a
 for (counter, (X1, Y1, X2, Y2)) in enumerate(LOCS):
  
     group = gray[int(Y1):int(Y2), int(X1):int(X2)]
-    #group = cv2.equalizeHist(group)
-    #g = cv2.equalizeHist(g)
+	
     W = int(X2) - int(X1)
     H = int(Y2) - int(Y1)
     cv2.imshow('image0', group)
