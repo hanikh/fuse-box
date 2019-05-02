@@ -308,7 +308,8 @@ gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 #### extracting locations from txt file
 
-with open('/media/a/9C8EE61C8EE5EF28/patra/patra project/fuse box/1.txt', 'r') as f:
+bb_path = input('bounding-box path?')
+with open(bb_path, 'r') as f:
     LOCS = [line.split() for line in f]
 
 
