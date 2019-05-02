@@ -7,7 +7,8 @@ import os
 
 #### loading the reference  OCR-A image.
 
-ref = cv2.imread("/media/a/9C8EE61C8EE5EF28/patra/ocr_a_reference_bitwise.jpg")
+ref_path = input('ref-image path?')
+ref = cv2.imread(ref_path)
 ref = cv2.cvtColor(ref, cv2.COLOR_BGR2GRAY)
 ref = cv2.threshold(ref, 20, 255, cv2.THRESH_BINARY_INV)[1]
 ref = cv2.bitwise_not(ref)
@@ -300,7 +301,8 @@ def fuse(G_img, kernel_state, grad_state, w_limit, h_limit, wh_state, W, H):
 
 #### loading the input image, and converting it to grayscal
 
-image = cv2.imread("/media/a/9C8EE61C8EE5EF28/patra/patra project/fuse box/1.bmp")
+img_path = input('image path?')
+img = cv2.imread(img_path)
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 
